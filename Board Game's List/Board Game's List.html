@@ -1,0 +1,603 @@
+<html>
+  <head>
+    <style>
+      body {
+        background-color: lightgrey;
+      }
+
+      th {
+        font-size: 30px;
+        padding-left: 50px;
+      }
+
+      td {
+        text-align: center;
+        padding-left: 50px;
+        padding-top: 10px;
+      }
+
+      tbody tr:hover {
+        color: darkred;
+        font-weight: bold;
+        font-size: 18px;
+      }
+    </style>
+    <script>
+      /**
+       * Funcion para ordenar una tabla... tiene que recibir el numero de columna a
+       * ordenar y el tipo de orden
+       * @param int n
+       * @param str type - ['str'|'int']
+       */
+      function sortTable(n, type) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("myTable");
+        switching = true;
+        //Set the sorting direction to ascending:
+        dir = "asc";
+        /*Make a loop that will continue until no switching has been done:*/
+        while (switching) {
+          //start by saying: no switching is done:
+          switching = false;
+          rows = table.rows;
+          /*Loop through all table rows (except the first, which contains table headers):*/
+          for (i = 1; i < (rows.length - 1); i++) {
+            //start by saying there should be no switching:
+            shouldSwitch = false;
+            /*Get the two elements you want to compare, one from current row and one from the next:*/
+            x = rows[i].getElementsByTagName("TD")[n];
+            y = rows[i + 1].getElementsByTagName("TD")[n];
+            /*check if the two rows should switch place, based on the direction, asc or desc:*/
+            if (dir == "asc") {
+              if ((type == "str" && x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) || (type == "int" && parseFloat(x.innerHTML) > parseFloat(y.innerHTML))) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
+            } else if (dir == "desc") {
+              if ((type == "str" && x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) || (type == "int" && parseFloat(x.innerHTML) < parseFloat(y.innerHTML))) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
+            }
+          }
+          if (shouldSwitch) {
+            /*If a switch has been marked, make the switch and mark that a switch has been done:*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+            //Each time a switch is done, increase this count by 1:
+            switchcount++;
+          } else {
+            /*If no switching has been done AND the direction is "asc", set the direction to "desc" and run the while loop again.*/
+            if (switchcount == 0 && dir == "asc") {
+              dir = "desc";
+              switching = true;
+            }
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div>
+      <table id="myTable">
+        <thead>
+          <tr>
+            <th onclick="sortTable(0, 'str')">Game</th>
+            <th onclick="sortTable(1, 'int')">Min. Players</th>
+            <th onclick="sortTable(2, 'int')">Max. Players</th>
+            <th onclick="sortTable(3, 'int')">Difficulty</th>
+            <th onclick="sortTable(4, 'int')">Time (minutes)</th>
+            <th onclick="sortTable(5, 'str')">Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="item">
+            <td>A lesson in Life & Death</td>
+            <td>3</td>
+            <td>6</td>
+            <td>2</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Aye, Dar Overlord</td>
+            <td>4</td>
+            <td>7</td>
+            <td>2</td>
+            <td>30-60</td>
+            <td>Role Game</td>
+          </tr>
+          <tr class="item">
+            <td>Azul</td>
+            <td>2</td>
+            <td>4</td>
+            <td>3</td>
+            <td>30-45</td>
+            <td>Abstract</td>
+          </tr>
+          <tr class="item">
+            <td>Azul: Stained Glass of Sintra</td>
+            <td>2</td>
+            <td>4</td>
+            <td>4</td>
+            <td>30-45</td>
+            <td>Abstract</td>
+          </tr>
+          <tr class="item">
+            <td>BANG! The Bulllet!</td>
+            <td>3</td>
+            <td>8</td>
+            <td>3</td>
+            <td>30</td>
+            <td>Card Game</td>
+          </tr>
+          <tr class="item">
+            <td>Betrayal at House on the Hill</td>
+            <td>3</td>
+            <td>6</td>
+            <td>5</td>
+            <td>60</td>
+            <td>Exploration</td>
+          </tr>
+          <tr class="item">
+            <td>Boggle</td>
+            <td>1</td>
+            <td>8</td>
+            <td>1</td>
+            <td>10</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Bohnanza</td>
+            <td>2</td>
+            <td>7</td>
+            <td>3</td>
+            <td>45</td>
+            <td>Deck Builder</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: 2014 Holiday</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: 90s Nostalgia</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: AU Edition</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Design</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Error</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Expansion 1</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Expansion 2</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Expansion 3</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Expansion 4</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Expansion 5</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Expansion 6</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Fantasy</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Geek</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Jew</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Reject</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Reject 2</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>CAH: Science</td>
+            <td>4</td>
+            <td>30</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Citadels</td>
+            <td>2</td>
+            <td>8</td>
+            <td>4</td>
+            <td>20-60</td>
+            <td>Deck Builder</td>
+          </tr>
+          <tr class="item">
+            <td>Cluedo</td>
+            <td>3</td>
+            <td>6</td>
+            <td>3</td>
+            <td>45</td>
+            <td>Exploration</td>
+          </tr>
+          <tr class="item">
+            <td>Cranium</td>
+            <td>4</td>
+            <td>16</td>
+            <td>1</td>
+            <td>60</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dialect</td>
+            <td>3</td>
+            <td>5</td>
+            <td>6</td>
+            <td>180-240</td>
+            <td>Role Game</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit </td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit Odyssey</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 2: Quest</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 3: Journey</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 4: Origins</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 5: Daydreams</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 6: Memories</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 7: Revelations</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 8: Harmonies</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 9: Anniversary</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Dixit 10: Mirrors</td>
+            <td>3</td>
+            <td>12</td>
+            <td>1</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Exploding Kittens</td>
+            <td>2</td>
+            <td>5</td>
+            <td>2</td>
+            <td>15</td>
+            <td>Card Game</td>
+          </tr>
+          <tr class="item">
+            <td>Exploding Kittens: Expansion Pack</td>
+            <td>2</td>
+            <td>6</td>
+            <td>2</td>
+            <td>15</td>
+            <td>Card Game</td>
+          </tr>
+          <tr class="item">
+            <td>Exploding Kittens: NSFW</td>
+            <td>2</td>
+            <td>5</td>
+            <td>2</td>
+            <td>15</td>
+            <td>Card Game</td>
+          </tr>
+          <tr class="item">
+            <td>Festivus</td>
+            <td>2</td>
+            <td>4</td>
+            <td>2</td>
+            <td>45</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Guillotine</td>
+            <td>2</td>
+            <td>5</td>
+            <td>3</td>
+            <td>30</td>
+            <td>Deck Builder</td>
+          </tr>
+          <tr class="item">
+            <td>King of Tokyo</td>
+            <td>2</td>
+            <td>6</td>
+            <td>3</td>
+            <td>30</td>
+            <td>Push your luck</td>
+          </tr>
+          <tr class="item">
+            <td>Kodama: The Tree Spirit</td>
+            <td>2</td>
+            <td>5</td>
+            <td>3</td>
+            <td>30</td>
+            <td>Eurogame</td>
+          </tr>
+          <tr class="item">
+            <td>Monopoly: The Simpsons</td>
+            <td>2</td>
+            <td>6</td>
+            <td>3</td>
+            <td>120</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Mysterium</td>
+            <td>2</td>
+            <td>7</td>
+            <td>4</td>
+            <td>45</td>
+            <td>Cooperative</td>
+          </tr>
+          <tr class="item">
+            <td>Pandemic</td>
+            <td>2</td>
+            <td>4</td>
+            <td>5</td>
+            <td>45</td>
+            <td>Cooperative</td>
+          </tr>
+          <tr class="item">
+            <td>Penguin Trap</td>
+            <td>2</td>
+            <td>4</td>
+            <td>1</td>
+            <td>5</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Puerto Rico</td>
+            <td>3</td>
+            <td>5</td>
+            <td>6</td>
+            <td>90-150</td>
+            <td>Strategy</td>
+          </tr>
+          <tr class="item">
+            <td>Spirits of the Forest</td>
+            <td>1</td>
+            <td>4</td>
+            <td>2</td>
+            <td>20</td>
+            <td>Abstract</td>
+          </tr>
+          <tr class="item">
+            <td>Taboo</td>
+            <td>4</td>
+            <td>10</td>
+            <td>1</td>
+            <td>45</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>The Simpsons</td>
+            <td>2</td>
+            <td>6</td>
+            <td>2</td>
+            <td>45</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Ticket to Ride</td>
+            <td>2</td>
+            <td>5</td>
+            <td>3</td>
+            <td>30-60</td>
+            <td>Eurogame</td>
+          </tr>
+          <tr class="item">
+            <td>Ticket to Ride: Europe</td>
+            <td>2</td>
+            <td>5</td>
+            <td>4</td>
+            <td>30-60</td>
+            <td>Eurogame</td>
+          </tr>
+          <tr class="item">
+            <td>Timeline: Events</td>
+            <td>2</td>
+            <td>8</td>
+            <td>1</td>
+            <td>20</td>
+            <td>Trivia</td>
+          </tr>
+          <tr class="item">
+            <td>Timeline: General</td>
+            <td>2</td>
+            <td>8</td>
+            <td>1</td>
+            <td>20</td>
+            <td>Trivia</td>
+          </tr>
+          <tr class="item">
+            <td>Timeline: Inventions</td>
+            <td>2</td>
+            <td>8</td>
+            <td>1</td>
+            <td>20</td>
+            <td>Trivia</td>
+          </tr>
+          <tr class="item">
+            <td>Ubongo</td>
+            <td>2</td>
+            <td>6</td>
+            <td>2</td>
+            <td>30</td>
+            <td>Family</td>
+          </tr>
+          <tr class="item">
+            <td>Unstable Unicorns</td>
+            <td>2</td>
+            <td>8</td>
+            <td>3</td>
+            <td>30-45</td>
+            <td>Card Game</td>
+          </tr>
+          <tr class="item">
+            <td>You be the Judge</td>
+            <td>2</td>
+            <td>10</td>
+            <td>1</td>
+            <td>-</td>
+            <td>Trivia</td>
+          </tr>
+        </tbody>
+      </table>
+  </body>
+</html>
